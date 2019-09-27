@@ -1,11 +1,10 @@
 
-
-
 //Listenin to auth status changes
 auth.onAuthStateChanged(user => {
   if(user){
     //getting data
-    db.collection('guides').get().then((snapshot)=>{
+    //db.collection('guides').get().then((snapshot)=>{
+    db.collection('guides').onSnapshot((snapshot)=>{//Adding a listener to the Database
       setupGuides(snapshot.docs);
       setupUI(user);
     });
