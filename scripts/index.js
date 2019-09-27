@@ -2,10 +2,11 @@ const guideList = document.querySelector('ul.guides');
 
 //Setup guides
 const setupGuides = (data) => {
+  if (data.length) {
     let html = '';
     data.forEach((doc)=>{
       const guide = doc.data();
-      console.log(guide);
+      //console.log(guide);
       const li = `
         <li>
             <div class="collapsible-header grey lighten-4">${guide.title}</div>
@@ -16,6 +17,10 @@ const setupGuides = (data) => {
     });
 
     guideList.innerHTML = html;
+  }else{
+      guideList.innerHTML = '<h6>Log In to View Guides</h6>';
+  }
+
 };
 
 
