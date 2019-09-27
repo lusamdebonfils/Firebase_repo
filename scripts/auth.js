@@ -7,13 +7,36 @@ auth.onAuthStateChanged(user => {
     //getting data
     db.collection('guides').get().then((snapshot)=>{
       setupGuides(snapshot.docs);
+      setupUI(user);
     });
 
   }else{
+    setupUI();
     setupGuides([]);
   }
 
 });
+
+//create New GUIDE
+const createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit',(e)=>{
+  e.preventDefault();
+
+  const titlePassed = createForm['title'].value;
+  const contentPassed = createForm['content'].value;
+
+  db.collection('guides').add({
+    title : titlePassed,
+    content : contentPassed
+  }).then(()=>{
+    const modal = document.querySelector('#modal-create');
+    M.Modal.getInstance(modal).close();
+    createForm.reset();
+  }).catch(err=>{
+    console.log(err.message);
+  });
+});
+
 
 //signup a new User
   const signupForm = document.querySelector('#signup-form');
