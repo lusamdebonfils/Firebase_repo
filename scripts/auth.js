@@ -1,3 +1,13 @@
+//Listenin to auth status changes
+auth.onAuthStateChanged(user => {
+  if(user){
+    console.log(user.email + " is logged in");
+  }else{
+    console.log("user is logged out");
+  }
+
+});
+
 //signup a new User
   const signupForm = document.querySelector('#signup-form');
 
@@ -6,10 +16,6 @@
 
       const email = signupForm['signup-email'].value;
       const password = signupForm['signup-password'].value;
-
-      //loging users info
-      //console.log(email);
-      //console.log(password);
 
       //Singup users
       auth.createUserWithEmailAndPassword(email, password).then(
@@ -23,15 +29,11 @@
 
   });
 
-
 //Logout
 const logout = document.querySelector('#logout');
 logout.addEventListener('click',(e)=>{
   e.preventDefault();
-  auth.signOut().then(
-    ()=>{
-      console.log("This fala has logged out");
-  });
+  auth.signOut();
 });
 
 //login
@@ -44,7 +46,7 @@ loginForm.addEventListener('submit',(e)=>{
     const password = loginForm['login-password'].value;
 
     auth.signInWithEmailAndPassword(email,password).then((cred)=>{
-      console.log(cred.user);
+      //console.log(cred.user);
       const modal = document.querySelector('#modal-login');
       M.Modal.getInstance(modal).close();
       loginForm.reset();
