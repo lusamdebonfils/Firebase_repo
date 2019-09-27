@@ -7,6 +7,8 @@ auth.onAuthStateChanged(user => {
     db.collection('guides').onSnapshot((snapshot)=>{//Adding a listener to the Database
       setupGuides(snapshot.docs);
       setupUI(user);
+    },(err)=>{
+      console.log(err.message);
     });
 
   }else{

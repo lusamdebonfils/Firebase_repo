@@ -2,13 +2,21 @@ const guideList = document.querySelector('ul.guides');
 
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
+const accountDetails = document.querySelector('.account-details');
 
 const setupUI = (user)=>{
+  console.log(user);
   if(user) {
+    //account info
+    const html = `<div>Logged in as ${user.email} </div>`;
+    //show AccountInfo
+    accountDetails.innerHTML = html;
     //toggleUI elements
     loggedInLinks.forEach(item=>item.style.display = 'block');
     loggedOutLinks.forEach(item=>item.style.display = 'none');
   }else {
+    //show AccountInfo
+    //accountDetails.innerHTML = '';
     loggedInLinks.forEach(item=>item.style.display = 'none');
     loggedOutLinks.forEach(item=>item.style.display = 'block');
   }
