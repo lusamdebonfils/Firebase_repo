@@ -8,9 +8,12 @@ const setupUI = (user)=>{
   console.log(user);
   if(user) {
     //account info
-    const html = `<div>Logged in as ${user.email} </div>`;
-    //show AccountInfo
-    accountDetails.innerHTML = html;
+    db.collection('users').doc(user.uid).get().then((doc)=>{
+      const html = `<div>Logged in as ${user.email} </div>
+                    <div>Biography ${doc.data().bio} </div>`;
+      //show AccountInfo
+      accountDetails.innerHTML = html;
+    });
     //toggleUI elements
     loggedInLinks.forEach(item=>item.style.display = 'block');
     loggedOutLinks.forEach(item=>item.style.display = 'none');

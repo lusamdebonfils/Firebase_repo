@@ -47,16 +47,18 @@ createForm.addEventListener('submit',(e)=>{
 
       const email = signupForm['signup-email'].value;
       const password = signupForm['signup-password'].value;
+      const bioGraphy = signupForm['signup-bio'].value;
 
       //Singup users
-      auth.createUserWithEmailAndPassword(email, password).then(
-        (cred)=>{
-            //console.log(cred.user);
-            const modal = document.querySelector('#modal-signup');
-            M.Modal.getInstance(modal).close();
-            signupForm.reset();
-        }
-      );
+      auth.createUserWithEmailAndPassword(email, password).then((cred)=>{
+          return db.collection('users').doc(cred.user.uid).set({
+            bio : bioGraphy
+          });
+        }).then(()=>{
+          const modal = document.querySelector('#modal-signup');
+          M.Modal.getInstance(modal).close();
+          signupForm.reset();
+        });
 
   });
 
